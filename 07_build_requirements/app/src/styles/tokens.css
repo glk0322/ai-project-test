@@ -1,0 +1,21 @@
+:root {
+  --ink: #191b21;
+  --sub: #5b6270;
+  --muted: #9aa0ac;
+  --line: #e8e9ef;
+  --bg: #fafafb;
+  --surface: #ffffff;
+  --surface2: #f4f5f8;
+  --deep: #2e3345;
+  --orange: #ea5b18;
+  --orange-soft: #fdece3;
+  --track: #ecedf1;
+  --gray: #b4b2a9;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shell-max: 430px;
+}

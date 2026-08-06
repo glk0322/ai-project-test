@@ -1,0 +1,481 @@
+/* ---------- App shell ---------- */
+.app-shell {
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.screen {
+  flex: 1;
+  padding: 16px 18px 96px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.topbar .back {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--sub);
+  font-size: 18px;
+}
+
+.topbar h1 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* ---------- Bottom nav ---------- */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  z-index: 10;
+}
+
+.bottom-nav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 4px 0;
+}
+
+.bottom-nav a.active {
+  color: var(--orange);
+}
+
+.bottom-nav .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-md);
+  padding: 13px 0;
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  transition: opacity 0.15s ease;
+}
+
+.btn:active {
+  opacity: 0.7;
+}
+
+.btn.solid {
+  background: var(--orange);
+  color: #fff;
+}
+
+.btn.solid:disabled {
+  background: var(--track);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.btn.deep {
+  background: var(--deep);
+  color: #fff;
+}
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+}
+
+.card + .card {
+  margin-top: 10px;
+}
+
+/* ---------- Chips / pills ---------- */
+.chip {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 7px 13px;
+  white-space: nowrap;
+}
+
+.chip.active {
+  background: var(--deep);
+  color: #fff;
+  border-color: var(--deep);
+}
+
+.pill {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pill.met {
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+
+.pill.chk {
+  color: var(--sub);
+  border: 1px dashed var(--muted);
+}
+
+.pill.adj {
+  color: var(--sub);
+  border: 1px solid var(--muted);
+}
+
+/* ---------- Fit segments (list motif) ---------- */
+.seg {
+  display: flex;
+  gap: 3px;
+}
+
+.seg span {
+  width: 17px;
+  height: 6px;
+  border-radius: 3px;
+}
+
+.seg .on {
+  background: var(--orange);
+}
+
+.seg .off {
+  border: 1px solid #c7c6bf;
+}
+
+.seg .chk {
+  border: 1px dashed #c7c6bf;
+}
+
+.verdict {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.verdict.dim {
+  color: var(--sub);
+  font-weight: 600;
+}
+
+/* ---------- Fit gauge (detail motif) ---------- */
+.gauge-row {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.gauge-row:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.gauge-row .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gauge-row .label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.track {
+  position: relative;
+  height: 8px;
+  background: var(--track);
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.track.dashed {
+  background: none;
+  border: 1px dashed #b9bac2;
+}
+
+.track .fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.track .tick {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  background: #3a3f52;
+}
+
+.gcap {
+  font-size: 11.5px;
+  color: var(--sub);
+}
+
+.gcap b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---------- O/X qualification list ---------- */
+.qual-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.qual-row:first-of-type {
+  border-top: none;
+}
+
+.qual-row .name {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.qual-row .detail {
+  font-size: 11.5px;
+  color: var(--sub);
+  margin-top: 2px;
+}
+
+.mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.mark.o {
+  background: var(--orange-soft);
+  color: var(--orange);
+}
+
+.mark.x {
+  background: var(--surface2);
+  color: var(--muted);
+}
+
+/* ---------- Bottom sheet ---------- */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 27, 33, 0.45);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  max-width: var(--shell-max);
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+  max-height: 82vh;
+  overflow-y: auto;
+  animation: sheet-up 0.22s ease;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sheet .grabber {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  margin: 6px auto 14px;
+}
+
+.sheet h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.sheet .lead {
+  font-size: 12.5px;
+  color: var(--sub);
+  margin-bottom: 16px;
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  margin-bottom: 20px;
+}
+
+.field .label {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  display: block;
+}
+
+.field .helper {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: 2px solid var(--deep);
+  outline-offset: -1px;
+}
+
+.chip-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-select button {
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+}
+
+.chip-select button.selected {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: #fff;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--sub);
+}
+
+.empty-state .t {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.empty-state .d {
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* ---------- Misc ---------- */
+.co {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.ti {
+  font-size: 14.5px;
+  font-weight: 700;
+  margin: 2px 0 8px;
+}
+
+.meta {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--sub);
+  flex-wrap: wrap;
+}
+
+.meta b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
+  margin: 18px 0;
+}
