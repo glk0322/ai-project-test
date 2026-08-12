@@ -95,6 +95,12 @@ export function fitVerdict(evals: ConditionEval[]): { label: string; tone: 'met'
   return { label: `애매 · ${metCount}/${evals.length}`, tone: 'adjust' };
 }
 
+export function fitHeadline(tone: 'met' | 'check' | 'adjust'): string {
+  if (tone === 'met') return '지금 지원해도 될 것 같아요';
+  if (tone === 'check') return '확인이 필요해요';
+  return '지금은 애매해요';
+}
+
 export interface QualificationEval {
   key: string;
   label: string;

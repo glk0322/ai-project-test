@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import type { JobPosting, UserConditions, UserQualifications } from '../data/types';
 import { evaluateConditions, evaluateQualifications, fitVerdict, computeFitScore } from '../lib/fitScore';
-import { FitSegments } from './FitSegments';
+import { FitPercentBar } from './FitPercentBar';
 
 function hint(evals: ReturnType<typeof evaluateConditions>): string | null {
   const adjust = evals.find((e) => e.status === 'adjust');
@@ -39,7 +39,7 @@ export function JobCard({
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
         {evals ? (
-          <FitSegments evals={evals} />
+          <FitPercentBar score={score} />
         ) : (
           <span className="gcap">부합도 계산 불가 · 내 조건 등록 필요</span>
         )}
