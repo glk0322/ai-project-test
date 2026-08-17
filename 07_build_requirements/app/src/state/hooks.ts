@@ -38,6 +38,10 @@ export function useApplications() {
   return useLocalStorageState<Application[]>('bh_applications', []);
 }
 
+export function useRecentSearches() {
+  return useLocalStorageState<string[]>('bh_recent_searches', []);
+}
+
 export function hasSetConditions(conditions: UserConditions): boolean {
   return conditions.jobTypes.length > 0 && conditions.minWage > 0 && conditions.days.length > 0;
 }

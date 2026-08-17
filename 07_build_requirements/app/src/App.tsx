@@ -10,6 +10,7 @@ import { MyHubPage } from './screens/My/MyHubPage';
 import { MyConditionsPage } from './screens/My/MyConditionsPage';
 import { MyQualificationsPage } from './screens/My/MyQualificationsPage';
 import { MyResumePage } from './screens/My/MyResumePage';
+import { ComingSoonPage } from './screens/Placeholder/ComingSoonPage';
 
 function App() {
   return (
@@ -17,11 +18,14 @@ function App() {
       <Routes>
         <Route element={<AppShell />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/explore" element={<ExploreSearchPage />} />
+          <Route path="/community" element={<ComingSoonPage title="커뮤니티" />} />
+          <Route path="/map" element={<ComingSoonPage title="지도" />} />
+          <Route path="/chat" element={<ComingSoonPage title="채팅" />} />
           <Route path="/my" element={<MyHubPage />} />
         </Route>
 
-        <Route path="/explore/results" element={<AppShell hideNav><ExploreResultsPage /></AppShell>} />
+        <Route path="/explore" element={<AppShell hideNav><ExploreSearchPage /></AppShell>} />
+        <Route path="/explore/results" element={<AppShell><ExploreResultsPage /></AppShell>} />
         <Route path="/job/:jobId" element={<AppShell hideNav><JobDetailPage /></AppShell>} />
         <Route path="/apply/:jobId" element={<AppShell hideNav><ApplyConfirmPage /></AppShell>} />
         <Route path="/apply/:jobId/complete" element={<AppShell hideNav><ApplyCompletePage /></AppShell>} />

@@ -1,67 +1,75 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { JOB_TYPES } from '../../data/jobs';
+import { onHorizontalWheel } from '../../lib/scroll';
+import { useRecentSearches } from '../../state/hooks';
+
+const POPULAR_SEARCHES = ['카페', '편의점', '음식점 홀', '물류·배송', '판매·매장', '사무보조', '주말', '심야'];
 
 export function ExploreSearchPage() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
-  const [jobTypes, setJobTypes] = useState<string[]>([]);
-  const [maxWalk, setMaxWalk] = useState('');
+  const [recent, setRecent] = useRecentSearches();
 
-  const toggleJobType = (jt: string) => {
-    setJobTypes((prev) => (prev.includes(jt) ? prev.filter((v) => v !== jt) : [...prev, jt]));
-  };
-
-  const handleSearch = () => {
-    const params = new URLSearchParams();
-    if (keyword.trim()) params.set('q', keyword.trim());
-    if (jobTypes.length) params.set('jobTypes', jobTypes.join(','));
-    if (maxWalk) params.set('maxWalk', maxWalk);
-    navigate(`/explore/results?${params.toString()}`);
+  const runSearch = (term: string) => {
+    const q = term.trim();
+    if (!q) return;
+    setRecent((prev) => [q, ...prev.filter((r) => r !== q)].slice(0, 8));
+    navigate(`/explore/results?q=${encodeURIComponent(q)}`);
   };
 
   return (
-    <div className="screen">
-      <div style={{ padding: '4px 0 12px' }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800 }}>알바 찾기</h1>
-      </div>
-
-      <div className="field">
-        <label className="label">직종 · 지역 검색</label>
+    <div>
+      <div className="search-topbar">
+        <button className="back" onClick={() => navigate(-1)} aria-label="뒤로가기">
+          ‹
+        </button>
         <input
-          className="input"
-          placeholder="예: 카페, 홍대"
+          className="search-input"
+          autoFocus
+          placeholder="어떤 알바를 찾으세요?"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') runSearch(keyword);
+          }}
         />
       </div>
+      <div className="hairline" style={{ margin: 0 }} />
 
-      <div className="field">
-        <label className="label">직종</label>
-        <div className="chip-select">
-          {JOB_TYPES.map((jt) => (
-            <button key={jt} className={jobTypes.includes(jt) ? 'selected' : ''} onClick={() => toggleJobType(jt)}>
-              {jt}
-            </button>
-          ))}
+      <div className="screen" style={{ paddingTop: 18 }}>
+        {recent.length > 0 && (
+          <div className="field">
+            <label className="label">최근 검색어</label>
+            <div className="chip-scroll" onWheel={onHorizontalWheel}>
+              {recent.map((term) => (
+                <span key={term} className="chip-removable">
+                  <button className="term" onClick={() => runSearch(term)}>
+                    {term}
+                  </button>
+                  <button
+                    className="remove"
+                    aria-label={`${term} 삭제`}
+                    onClick={() => setRecent((prev) => prev.filter((r) => r !== term))}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="field">
+          <label className="label">인기 검색어</label>
+          <div className="chip-select">
+            {POPULAR_SEARCHES.map((term) => (
+              <button key={term} onClick={() => runSearch(term)}>
+                {term}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="field">
-        <label className="label">도보 이동 시간 (분, 선택)</label>
-        <input
-          className="input"
-          type="number"
-          inputMode="numeric"
-          placeholder="예: 15"
-          value={maxWalk}
-          onChange={(e) => setMaxWalk(e.target.value)}
-        />
-      </div>
-
-      <button className="btn solid" onClick={handleSearch}>
-        검색하기
-      </button>
     </div>
   );
 }
