@@ -36,7 +36,7 @@ export function ExploreSearchPage() {
       </div>
       <div className="hairline" style={{ margin: 0 }} />
 
-      <div className="screen" style={{ paddingTop: 18 }}>
+      <div className="screen" style={{ paddingTop: 18, paddingBottom: 'calc(32px + env(safe-area-inset-bottom))' }}>
         {recent.length > 0 && (
           <div className="field">
             <label className="label">최근 검색어</label>

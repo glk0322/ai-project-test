@@ -29,9 +29,9 @@ export function ApplyConfirmPage() {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <TopBar title="지원 내용 확인" />
-      <div className="screen">
+      <div className="screen" style={{ flex: 1 }}>
         <p className="section-title">지원 공고</p>
         <div className="card">
           <div className="co">{job.company}</div>
@@ -59,9 +59,18 @@ export function ApplyConfirmPage() {
         </p>
       </div>
 
-      <div style={{ padding: '10px 18px calc(14px + env(safe-area-inset-bottom))' }}>
+      <div
+        style={{
+          position: 'sticky',
+          bottom: 0,
+          zIndex: 1,
+          background: 'var(--bg)',
+          padding: '10px 18px calc(14px + env(safe-area-inset-bottom))',
+          borderTop: '1px solid var(--line)',
+        }}
+      >
         <button className="btn solid" onClick={handleSubmit}>
-          총 {applications.length + 1}건 지원 완료하기
+          지원하기
         </button>
       </div>
     </div>

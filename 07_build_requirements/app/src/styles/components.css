@@ -9,6 +9,7 @@
   position: relative;
   box-shadow: 0 0 0 1px var(--line);
   overflow: hidden;
+  padding-top: env(safe-area-inset-top);
 }
 
 .app-content {
@@ -50,6 +51,24 @@
 .topbar h1 {
   font-size: 17px;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar-title {
+  animation: topbar-title-in 0.18s ease;
+}
+
+@keyframes topbar-title-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------- Bottom nav ---------- */
@@ -531,6 +550,143 @@
   font-size: 15px;
   font-weight: 800;
   margin-bottom: 10px;
+}
+
+/* ---------- Job detail ---------- */
+.job-detail-postedat-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.job-detail-postedat {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.job-detail-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0 0 14px;
+}
+
+.job-detail-company-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.job-detail-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.job-detail-company-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.job-detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.job-detail-rating-num {
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.job-detail-rating-count {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.job-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.job-detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.job-detail-badge.badge-verified {
+  background: #fff3f1;
+  border-color: #ffb0ae;
+  color: #ff4d4c;
+}
+
+.job-detail-badge.badge-contract {
+  background: #f7f3ff;
+  border-color: #dacdff;
+  color: #8635f6;
+}
+
+.job-detail-badge.badge-education {
+  background: #fffce6;
+  border-color: #ffd800;
+  color: #d88400;
+}
+
+.job-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.job-info-row {
+  display: flex;
+  gap: 20px;
+  font-size: 13.5px;
+}
+
+.job-info-row .label {
+  flex-shrink: 0;
+  width: 58px;
+  color: var(--sub);
+}
+
+.job-info-row .value {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.job-info-row .wage-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.job-info-row .sub-line {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--sub);
+  line-height: 1.5;
 }
 
 .hairline {

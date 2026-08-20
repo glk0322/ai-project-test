@@ -20,7 +20,9 @@ export function TopBar({
           ‹
         </button>
       )}
-      <h1 style={{ flex: 1 }}>{title}</h1>
+      <h1 key={title} className="topbar-title" style={{ flex: 1 }}>
+        {title}
+      </h1>
       {right}
     </div>
   );

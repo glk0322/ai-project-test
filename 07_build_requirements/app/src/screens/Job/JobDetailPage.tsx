@@ -1,25 +1,62 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TopBar } from '../../components/TopBar';
 import { FitSummary } from '../../components/FitSummary';
 import { QualificationList } from '../../components/QualificationList';
+import { BuildingIcon, GradCapIcon, PaperIcon, StarIcon } from '../../components/JobBadgeIcons';
 import { JOBS } from '../../data/jobs';
 import { DAY_LABEL } from '../../data/types';
 import { evaluateConditions, evaluateQualifications, qualificationsAllMet } from '../../lib/fitScore';
 import { hasSetConditions, useUserConditions, useUserQualifications } from '../../state/hooks';
+
+function hashStr(s: string) {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+// Rating/review count/verification badges are display-only placeholders (no such data exists yet) — deterministic per job so they don't shift on re-render.
+function jobDisplayExtras(jobId: string) {
+  const rating = (hashStr(`${jobId}:rating`) % 4) + 2;
+  const reviewCount = (hashStr(`${jobId}:reviews`) % 47) + 3;
+  const badges = [
+    hashStr(`${jobId}:badge0`) % 2 === 0,
+    hashStr(`${jobId}:badge1`) % 2 === 0,
+    hashStr(`${jobId}:badge2`) % 2 === 0,
+  ];
+  if (!badges.some(Boolean)) badges[0] = true;
+  return { rating, reviewCount, badges };
+}
 
 export function JobDetailPage() {
   const { jobId } = useParams();
   const navigate = useNavigate();
   const [conditions] = useUserConditions();
   const [qualifications] = useUserQualifications();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [showTitleInHeader, setShowTitleInHeader] = useState(false);
 
   const job = JOBS.find((j) => j.id === jobId);
-  const ready = hasSetConditions(conditions);
+
+  useEffect(() => {
+    setShowTitleInHeader(false);
+    const titleEl = titleRef.current;
+    if (!job || !titleEl) return;
+    const scrollRoot = titleEl.closest('.app-content');
+    const headerHeight = scrollRoot?.querySelector('.topbar')?.getBoundingClientRect().height ?? 56;
+    const observer = new IntersectionObserver(([entry]) => setShowTitleInHeader(!entry.isIntersecting), {
+      root: scrollRoot,
+      rootMargin: `-${headerHeight}px 0px 0px 0px`,
+      threshold: 0,
+    });
+    observer.observe(titleEl);
+    return () => observer.disconnect();
+  }, [job]);
 
   if (!job) {
     return (
       <div>
-        <TopBar title="공고 상세" />
+        <TopBar title="채용정보" />
         <div className="screen empty-state">
           <p className="t">공고를 찾을 수 없어요</p>
         </div>
@@ -27,26 +64,56 @@ export function JobDetailPage() {
     );
   }
 
+  const ready = hasSetConditions(conditions);
   const evals = ready ? evaluateConditions(conditions, job) : null;
   const quals = ready ? evaluateQualifications(qualifications, job) : [];
   const eligible = ready ? qualificationsAllMet(quals) : true;
+  const timeLabel = job.timeSlot === '협의' ? '시간 협의' : job.timeSlot;
+  const { rating, reviewCount, badges } = jobDisplayExtras(job.id);
 
   return (
-    <div>
-      <TopBar title="공고 상세" />
-      <div className="screen">
-        <div className="co">{job.company}</div>
-        <h2 style={{ fontSize: 18, fontWeight: 800, margin: '4px 0 12px' }}>{job.title}</h2>
-        <div className="meta" style={{ marginBottom: 4 }}>
-          <span>
-            시급 <b>{job.wage.toLocaleString()}원</b>
-          </span>
-          <span>{job.days.map((d) => DAY_LABEL[d]).join(',')}</span>
-          <span>{job.timeSlot}</span>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <TopBar title={showTitleInHeader ? job.title : '채용정보'} />
+      <div className="screen" style={{ flex: 1 }}>
+        <div className="job-detail-postedat-row">
+          <span className="job-detail-postedat">{job.postedAt}</span>
         </div>
-        <p className="gcap" style={{ marginTop: 6 }}>
-          {job.location} · 도보 {job.walkMinutes}분
-        </p>
+        <h2 ref={titleRef} className="job-detail-title">
+          {job.title}
+        </h2>
+        <div className="job-detail-company-row">
+          <div className="job-detail-avatar" />
+          <div className="job-detail-company-info">
+            <div className="co">{job.company}</div>
+            <div className="job-detail-rating">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <StarIcon key={i} filled={i < rating} />
+              ))}
+              <span className="job-detail-rating-num">{rating}</span>
+              <span className="job-detail-rating-count">({reviewCount})</span>
+            </div>
+          </div>
+        </div>
+        <div className="job-detail-badges">
+          {badges[0] && (
+            <span className="job-detail-badge badge-verified">
+              <BuildingIcon />
+              기업인증
+            </span>
+          )}
+          {badges[1] && (
+            <span className="job-detail-badge badge-contract">
+              <PaperIcon />
+              근로계약서약속
+            </span>
+          )}
+          {badges[2] && (
+            <span className="job-detail-badge badge-education">
+              <GradCapIcon />
+              성희롱예방교육수료
+            </span>
+          )}
+        </div>
 
         <div className="hairline" />
 
@@ -75,6 +142,40 @@ export function JobDetailPage() {
           ) : (
             <p className="gcap">내 조건(경력·자격)을 등록하면 O/X로 보여드려요.</p>
           )}
+        </div>
+
+        <div className="hairline" />
+
+        <p className="section-title">근무조건</p>
+        <div className="job-info-rows">
+          <div className="job-info-row">
+            <span className="label">급여</span>
+            <span className="value">
+              <span className="wage-line">
+                <span className="pill met">시급</span>
+                {job.wage.toLocaleString()}원
+              </span>
+              {job.preferred.length > 0 && <span className="sub-line">{job.preferred.join(', ')}</span>}
+            </span>
+          </div>
+          <div className="job-info-row">
+            <span className="label">근무기간</span>
+            <span className="value">{job.duration}</span>
+          </div>
+          <div className="job-info-row">
+            <span className="label">근무요일</span>
+            <span className="value">{job.days.map((d) => DAY_LABEL[d]).join(', ')}</span>
+          </div>
+          <div className="job-info-row">
+            <span className="label">근무시간</span>
+            <span className="value">{timeLabel}</span>
+          </div>
+          <div className="job-info-row">
+            <span className="label">근무지</span>
+            <span className="value">
+              {job.location} · 도보 {job.walkMinutes}분
+            </span>
+          </div>
         </div>
       </div>
 

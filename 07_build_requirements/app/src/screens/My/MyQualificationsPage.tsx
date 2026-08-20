@@ -29,7 +29,7 @@ export function MyQualificationsPage() {
   return (
     <div>
       <TopBar title="경력 및 자격" />
-      <div className="screen" style={{ paddingBottom: 24 }}>
+      <div className="screen" style={{ paddingBottom: 'calc(24px + env(safe-area-inset-bottom))' }}>
         <p className="gcap" style={{ marginBottom: 18 }}>
           공고의 필수 자격(나이·경력·자격증·가능 시간) 충족 여부를 O/X로 보여주는 데 사용돼요.
         </p>

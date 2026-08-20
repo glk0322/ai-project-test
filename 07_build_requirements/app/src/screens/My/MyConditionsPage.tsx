@@ -26,7 +26,7 @@ export function MyConditionsPage() {
   return (
     <div>
       <TopBar title="내 근무 조건" />
-      <div className="screen" style={{ paddingBottom: 24 }}>
+      <div className="screen" style={{ paddingBottom: 'calc(24px + env(safe-area-inset-bottom))' }}>
         <div className="field">
           <label className="label">희망 직종 (복수 선택 가능)</label>
           <div className="chip-select">

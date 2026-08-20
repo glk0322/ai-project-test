@@ -7,7 +7,7 @@ export function MyResumePage() {
   return (
     <div>
       <TopBar title="내 이력서" />
-      <div className="screen">
+      <div className="screen" style={{ paddingBottom: 'calc(32px + env(safe-area-inset-bottom))' }}>
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span className="ti" style={{ margin: 0 }}>
