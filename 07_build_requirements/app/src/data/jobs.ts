@@ -13,6 +13,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '오후',
     walkMinutes: 8,
     location: '서울 마포구 홍대',
+    duration: '6개월~1년',
     required: { minAge: 18, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: false },
     preferred: ['카페 경력 우대'],
     postedAt: '2026-08-04',
@@ -27,6 +28,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '협의',
     walkMinutes: 22,
     location: '서울 마포구 서교동',
+    duration: '기간 협의',
     required: { minAge: 20, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: false },
     preferred: ['패션 판매 경력'],
     postedAt: '2026-08-03',
@@ -41,6 +43,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '심야',
     walkMinutes: 5,
     location: '서울 마포구 합정동',
+    duration: '1년 이상',
     required: { minAge: 19, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: false },
     preferred: [],
     postedAt: '2026-08-05',
@@ -55,6 +58,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '저녁',
     walkMinutes: 12,
     location: '서울 마포구 연남동',
+    duration: '3개월~6개월',
     required: { minAge: 18, minExperienceMonths: 3, requiredCertificate: '위생교육 이수증', requiresFullAvailability: false },
     preferred: ['서빙 경력 3개월 이상'],
     postedAt: '2026-08-02',
@@ -69,6 +73,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '오전',
     walkMinutes: 40,
     location: '서울 마포구 상암동',
+    duration: '1개월 이하',
     required: { minAge: 18, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: true },
     preferred: [],
     postedAt: '2026-08-01',
@@ -83,6 +88,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '오후',
     walkMinutes: 15,
     location: '서울 마포구 공덕동',
+    duration: '6개월~1년',
     required: { minAge: 20, minExperienceMonths: 6, requiredCertificate: '컴퓨터활용능력', requiresFullAvailability: false },
     preferred: ['엑셀 활용 가능자'],
     postedAt: '2026-08-05',
@@ -97,6 +103,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '오전',
     walkMinutes: 18,
     location: '서울 마포구 망원동',
+    duration: '3개월~6개월',
     required: { minAge: 18, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: false },
     preferred: ['바리스타 자격증 우대'],
     postedAt: '2026-08-04',
@@ -111,6 +118,7 @@ const CURATED_JOBS: JobPosting[] = [
     timeSlot: '오후',
     walkMinutes: 10,
     location: '서울 마포구 망원동',
+    duration: '1년 이상',
     required: { minAge: 18, minExperienceMonths: 0, requiredCertificate: null, requiresFullAvailability: false },
     preferred: [],
     postedAt: '2026-08-05',
@@ -152,6 +160,8 @@ const TIME_SLOTS: TimeSlot[] = ['오전', '오후', '저녁', '심야', '협의'
 
 const CERTS = ['위생교육 이수증', '컴퓨터활용능력', '바리스타 자격증'];
 
+const DURATIONS = ['1개월 이하', '1개월~3개월', '3개월~6개월', '6개월~1년', '1년 이상', '기간 협의'];
+
 function seededRandom(seed: number) {
   let s = seed;
   return () => {
@@ -181,6 +191,7 @@ function generateJobs(count: number): JobPosting[] {
       timeSlot: pick(TIME_SLOTS),
       walkMinutes: 3 + Math.floor(rand() * 30),
       location: `서울 마포구 ${district}`,
+      duration: pick(DURATIONS),
       required: {
         minAge: pick([18, 19, 20, null]),
         minExperienceMonths: pick([0, 0, 0, 3, 6]),

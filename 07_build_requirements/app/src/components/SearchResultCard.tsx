@@ -26,7 +26,7 @@ export function SearchResultCard({
   const quals = ready ? evaluateQualifications(qualifications, job) : [];
   const score = evals ? computeFitScore(evals) : 0;
   const qualFails = quals.filter((q) => q.status === 'x').length;
-  const experienceLabel = job.required.minExperienceMonths > 0 ? `경력 ${job.required.minExperienceMonths}개월+` : '경력무관';
+  const timeLabel = job.timeSlot === '협의' ? '시간 협의' : job.timeSlot;
 
   return (
     <div className="result-card" onClick={() => navigate(`/job/${job.id}`)}>
@@ -39,17 +39,12 @@ export function SearchResultCard({
       </div>
       <div className="ti">{job.title}</div>
       <div className="meta">
-        <span>{job.timeSlot}</span>
-        <span>{experienceLabel}</span>
+        <span>{timeLabel}</span>
+        <span>{job.duration}</span>
       </div>
 
       <div className="tag-row">
         <span className="tag-chip">{job.jobType}</span>
-        {job.preferred.map((p) => (
-          <span key={p} className="tag-chip">
-            {p}
-          </span>
-        ))}
       </div>
 
       {ready && evals && (

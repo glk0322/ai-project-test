@@ -50,6 +50,7 @@ export interface JobPosting {
   timeSlot: TimeSlot;
   walkMinutes: number;
   location: string;
+  duration: string;
   required: RequiredQualifications;
   preferred: string[];
   postedAt: string;

@@ -866,9 +866,9 @@
 }
 
 .result-star {
-  width: 16px;
-  height: 16px;
-  color: var(--line);
+  width: 24px;
+  height: 24px;
+  color: #d2d2d2;
 }
 
 .tag-row {
@@ -883,7 +883,7 @@
   font-weight: 600;
   color: var(--sub);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 5px 10px;
 }
 
@@ -892,6 +892,21 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
+}
+
+.result-fit-row .fitbar-label,
+.result-fit-row .pill {
+  font-weight: 400;
+  color: var(--sub);
+}
+
+.result-fit-row .pill {
+  border: none;
+  font-size: 12px;
+}
+
+.result-fit-row .fitbar-track.compact {
+  width: 140px;
 }
 
 .result-footer {
