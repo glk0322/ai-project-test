@@ -118,7 +118,7 @@ export function JobDetailPage() {
         <div className="hairline" />
 
         {/* FT-002 내 조건 부합도 */}
-        <p className="section-title">내 조건 부합도</p>
+        <p className="section-title" style={{ fontSize: 16, fontWeight: 'bold' }}>내 조건 부합도</p>
         {!ready ? (
           <div className="card">
             <p className="ti" style={{ margin: 0, fontSize: 13.5 }}>내 조건을 등록하면 부합도를 알려드려요</p>
@@ -135,8 +135,8 @@ export function JobDetailPage() {
         <div className="hairline" />
 
         {/* FT-003 필수 자격 확인 */}
-        <p className="section-title">필수 자격 확인</p>
-        <div className="card">
+        <p className="section-title" style={{ fontSize: 16, fontWeight: 'bold' }}>필수 자격 확인</p>
+        <div className="card" style={{ paddingTop: 0, paddingBottom: 0 }}>
           {ready ? (
             <QualificationList items={quals} />
           ) : (
@@ -146,7 +146,7 @@ export function JobDetailPage() {
 
         <div className="hairline" />
 
-        <p className="section-title">근무조건</p>
+        <p className="section-title" style={{ fontSize: 16, fontWeight: 'bold' }}>근무조건</p>
         <div className="job-info-rows">
           <div className="job-info-row">
             <span className="label">급여</span>

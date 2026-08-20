@@ -53,7 +53,7 @@ export function MyQualificationsPage() {
             type="number"
             inputMode="numeric"
             placeholder="예: 6"
-            value={draft.experienceMonths || ''}
+            value={draft.experienceMonths ?? ''}
             onChange={(e) => setDraft((d) => ({ ...d, experienceMonths: Number(e.target.value) }))}
           />
           <p className="helper">경력이 없으면 0으로 두세요.</p>

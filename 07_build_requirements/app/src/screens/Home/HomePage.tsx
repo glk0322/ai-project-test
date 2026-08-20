@@ -47,7 +47,7 @@ export function HomePage() {
       {!ready ? (
         <div className="card" style={{ textAlign: 'center', padding: '32px 20px' }}>
           <p className="ti" style={{ fontSize: 15 }}>내 조건을 등록해주세요</p>
-          <p className="gcap" style={{ margin: '6px 0 18px', lineHeight: 1.6 }}>
+          <p className="gcap" style={{ margin: '6px 0 18px', lineHeight: 1.6, fontSize: 12 }}>
             조건이 없으면 부합도를 계산할 수 없어요. 시급 · 요일 · 시간대 · 거리를 등록하면 딱 맞는 알바를 바로 보여드릴게요.
           </p>
           <button className="btn solid" onClick={() => navigate('/my/conditions')}>
